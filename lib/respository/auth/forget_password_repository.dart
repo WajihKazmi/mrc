@@ -7,15 +7,15 @@ class ForgetPasswordRepository {
 
   // ***   this is Get api data   ***
 
-  Future<ForgetPasswordModel> fetchForgetPasswordApi() async {
-    try {
-      dynamic response =
-          await _apiServices.getGetApiResponse(AppUrl.forget_password);
-      return response = ForgetPasswordModel.fromJson(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<ForgetPasswordModel> fetchForgetPasswordApi() async {
+  //   try {
+  //     dynamic response =
+  //         await _apiServices.getGetApiResponse(AppUrl.forget_password);
+  //     return response = ForgetPasswordModel.fromJson(response);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   // ***   this is Post api data   ***
 

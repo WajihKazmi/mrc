@@ -12,22 +12,22 @@ class ForgetPasswordViewModel with ChangeNotifier {
 
   //   ***   this is Get api data   ***
 
-  ApiResponse<ForgetPasswordModel> forget_passwordModel = ApiResponse.loading();
+  // ApiResponse<ForgetPasswordModel> forget_passwordModel = ApiResponse.loading();
 
-  setForgetPassword(ApiResponse<ForgetPasswordModel> response) {
-    forget_passwordModel = response;
-    notifyListeners();
-  }
+  // setForgetPassword(ApiResponse<ForgetPasswordModel> response) {
+  //   forget_passwordModel = response;
+  //   notifyListeners();
+  // }
 
-  Future<void> fetchForgetPasswordApi() async {
-    setForgetPassword(ApiResponse.loading());
+  // Future<void> fetchForgetPasswordApi() async {
+  //   setForgetPassword(ApiResponse.loading());
 
-    forget_passwordRepository.fetchForgetPasswordApi().then((value) {
-      setForgetPassword(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      setForgetPassword(ApiResponse.error(error.toString()));
-    });
-  }
+  //   forget_passwordRepository.fetchForgetPasswordApi().then((value) {
+  //     setForgetPassword(ApiResponse.completed(value));
+  //   }).onError((error, stackTrace) {
+  //     setForgetPassword(ApiResponse.error(error.toString()));
+  //   });
+  // }
 
   // ***   this is Post api data   ***
 
@@ -47,7 +47,7 @@ class ForgetPasswordViewModel with ChangeNotifier {
       final tokenPreference =
           Provider.of<TokenViewModel>(context, listen: false);
       tokenPreference.saveToken(TokenModel(token: value['token'].toString()));
-      AppNavigator.pushNamed(context, RoutesName.munawer);
+      AppNavigator.pushNamed(context, RoutesName.home);
     }).onError((error, stackTrace) {
       setForgetPasswordLoading(false);
     });

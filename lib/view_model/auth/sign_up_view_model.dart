@@ -12,22 +12,22 @@ class SignUpViewModel with ChangeNotifier {
 
   // ***   this is Get api data   ***
 
-  ApiResponse<SignUpModel> sign_upModel = ApiResponse.loading();
+  // ApiResponse<SignUpModel> sign_upModel = ApiResponse.loading();
 
-  setSignUp(ApiResponse<SignUpModel> response) {
-    sign_upModel = response;
-    notifyListeners();
-  }
+  // setSignUp(ApiResponse<SignUpModel> response) {
+  //   sign_upModel = response;
+  //   notifyListeners();
+  // }
 
-  Future<void> fetchSignUpApi() async {
-    setSignUp(ApiResponse.loading());
+  // Future<void> fetchSignUpApi() async {
+  //   setSignUp(ApiResponse.loading());
 
-    sign_upRepository.fetchSignUpApi().then((value) {
-      setSignUp(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      setSignUp(ApiResponse.error(error.toString()));
-    });
-  }
+  //   sign_upRepository.fetchSignUpApi().then((value) {
+  //     setSignUp(ApiResponse.completed(value));
+  //   }).onError((error, stackTrace) {
+  //     setSignUp(ApiResponse.error(error.toString()));
+  //   });
+  // }
 
   // ***   this is Post api data   ***
 
@@ -47,7 +47,7 @@ class SignUpViewModel with ChangeNotifier {
       final tokenPreference =
           Provider.of<TokenViewModel>(context, listen: false);
       tokenPreference.saveToken(TokenModel(token: value['token'].toString()));
-      AppNavigator.pushNamed(context, RoutesName.munawer);
+      AppNavigator.pushNamed(context, RoutesName.home);
     }).onError((error, stackTrace) {
       setSignUpLoading(false);
     });

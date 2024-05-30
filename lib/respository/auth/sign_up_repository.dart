@@ -7,14 +7,14 @@ class SignUpRepository {
 
   // ***   this is Get api data   ***
 
-  Future<SignUpModel> fetchSignUpApi() async {
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(AppUrl.sign_up);
-      return response = SignUpModel.fromJson(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<SignUpModel> fetchSignUpApi() async {
+  //   try {
+  //     dynamic response = await _apiServices.getGetApiResponse(AppUrl.sign_up);
+  //     return response = SignUpModel.fromJson(response);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   // ***   this is Post api data   ***
 

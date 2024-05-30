@@ -7,14 +7,14 @@ class LoginRepository {
 
   //   ***   this is Get api data   ***
 
-  Future<LoginModel> fetchLoginApi() async {
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(AppUrl.login);
-      return response = LoginModel.fromJson(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<LoginModel> fetchLoginApi() async {
+  //   try {
+  //     dynamic response = await _apiServices.getGetApiResponse(AppUrl.login);
+  //     return response = LoginModel.fromJson(response);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   // ***   this is Post api data   ***
 

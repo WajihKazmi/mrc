@@ -12,22 +12,22 @@ class ForgetEmailViewModel with ChangeNotifier {
 
   //   ***   this is Get api data   ***
 
-  ApiResponse<ForgetEmailModel> forget_emailModel = ApiResponse.loading();
+  // ApiResponse<ForgetEmailModel> forget_emailModel = ApiResponse.loading();
 
-  setForgetEmail(ApiResponse<ForgetEmailModel> response) {
-    forget_emailModel = response;
-    notifyListeners();
-  }
+  // setForgetEmail(ApiResponse<ForgetEmailModel> response) {
+  //   forget_emailModel = response;
+  //   notifyListeners();
+  // }
 
-  Future<void> fetchForgetEmailApi() async {
-    setForgetEmail(ApiResponse.loading());
+  // Future<void> fetchForgetEmailApi() async {
+  //   setForgetEmail(ApiResponse.loading());
 
-    forget_emailRepository.fetchForgetEmailApi().then((value) {
-      setForgetEmail(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      setForgetEmail(ApiResponse.error(error.toString()));
-    });
-  }
+  //   forget_emailRepository.fetchForgetEmailApi().then((value) {
+  //     setForgetEmail(ApiResponse.completed(value));
+  //   }).onError((error, stackTrace) {
+  //     setForgetEmail(ApiResponse.error(error.toString()));
+  //   });
+  // }
 
   // ***   this is Post api data   ***
 
@@ -47,7 +47,7 @@ class ForgetEmailViewModel with ChangeNotifier {
       final tokenPreference =
           Provider.of<TokenViewModel>(context, listen: false);
       tokenPreference.saveToken(TokenModel(token: value['token'].toString()));
-      AppNavigator.pushNamed(context, RoutesName.munawer);
+      AppNavigator.pushNamed(context, RoutesName.home);
     }).onError((error, stackTrace) {
       setForgetEmailLoading(false);
     });

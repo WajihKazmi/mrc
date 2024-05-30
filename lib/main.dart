@@ -1,3 +1,8 @@
+import 'package:mrc/view_model/auth/forget_email_view_model.dart';
+import 'package:mrc/view_model/auth/forget_password_view_model.dart';
+import 'package:mrc/view_model/auth/login_view_model.dart';
+import 'package:mrc/view_model/auth/sign_up_view_model.dart';
+
 import 'view_model/privacy_policy_view_model.dart';
 import 'view_model/faqs_view_model.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +26,13 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => BottomNavViewModel()),
     ChangeNotifierProvider(create: (_) => TokenViewModel()),
-  ChangeNotifierProvider(create: (_) => FaqsViewModel()),
-ChangeNotifierProvider(create: (_) => PrivacyPolicyViewModel()),
-], child: const MyApp()
+    ChangeNotifierProvider(create: (_) => FaqsViewModel()),
+    ChangeNotifierProvider(create: (_) => PrivacyPolicyViewModel()),
+    ChangeNotifierProvider(create: (_) => LoginViewModel()),
+    ChangeNotifierProvider(create: (_) => SignUpViewModel()),
+    ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),
+    ChangeNotifierProvider(create: (_) => ForgetEmailViewModel()),
+  ], child: const MyApp()
       // child: DevicePreview(
       //     enabled: true, builder: (BuildContext context) => const MyApp())
       ));

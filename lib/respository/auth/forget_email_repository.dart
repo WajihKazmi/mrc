@@ -7,15 +7,15 @@ class ForgetEmailRepository {
 
   //   ***   this is Get api data   ***
 
-  Future<ForgetEmailModel> fetchForgetEmailApi() async {
-    try {
-      dynamic response =
-          await _apiServices.getGetApiResponse(AppUrl.forget_email);
-      return response = ForgetEmailModel.fromJson(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<ForgetEmailModel> fetchForgetEmailApi() async {
+  //   try {
+  //     dynamic response =
+  //         await _apiServices.getGetApiResponse(AppUrl.forget_email);
+  //     return response = ForgetEmailModel.fromJson(response);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   //   ***   this is Post api data   ***
 
