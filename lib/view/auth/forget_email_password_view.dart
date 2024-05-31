@@ -70,13 +70,15 @@ class ForgetEmailPasswordView extends StatelessWidget {
               padding: AppPadding.screenPadding.copyWith(top: 0.h),
               child: Column(
                 children: [
-                  AppTextFormField.textFormField(context,
+                  AppTextFormField(
+                      isPassword: false,
                       keyboardType: TextInputType.number,
                       autofillHints: [AutofillHints.telephoneNumber],
                       fillColor: Theme.of(context).colorScheme.primaryContainer,
                       hintText: 'Enter Number'),
                   10.verticalSpace,
-                  AppTextFormField.textFormField(context,
+                  AppTextFormField(
+                      isPassword: false,
                       keyboardType: TextInputType.number,
                       fillColor: Theme.of(context).colorScheme.primaryContainer,
                       hintText: 'Enter OTP'),

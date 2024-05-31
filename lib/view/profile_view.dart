@@ -86,8 +86,7 @@ list(context, title, name, keyboardType) => Column(
           child: Text(title, style: Theme.of(context).textTheme.titleMedium),
         ),
         10.verticalSpace,
-        AppTextFormField.textFormField(
-          context,
+        AppTextFormField(
           hintText: name,
           keyboardType: keyboardType,
           fillColor: Theme.of(context).colorScheme.primaryContainer,

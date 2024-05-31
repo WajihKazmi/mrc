@@ -61,10 +61,9 @@ class ChangePasswordView extends StatelessWidget {
                   ValueListenableBuilder(
                       valueListenable: oldPassword,
                       builder: (context, value, child) {
-                        return AppTextFormField.textFormField(
+                        return AppTextFormField(
                             obscureText: oldPassword.value,
                             obscuringCharacter: "*",
-                            context,
                             hintText: '**********************',
                             fillColor:
                                 Theme.of(context).colorScheme.primaryContainer,
@@ -85,10 +84,9 @@ class ChangePasswordView extends StatelessWidget {
                   ValueListenableBuilder(
                       valueListenable: newPassword,
                       builder: (context, value, child) {
-                        return AppTextFormField.textFormField(
+                        return AppTextFormField(
                             obscureText: newPassword.value,
                             obscuringCharacter: "*",
-                            context,
                             hintText: 'andscascbadbsfbsfb',
                             fillColor:
                                 Theme.of(context).colorScheme.primaryContainer,

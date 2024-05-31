@@ -26,9 +26,11 @@ class LoginViewModel with ChangeNotifier {
       setLoginLoading(false);
       final tokenPreference =
           Provider.of<TokenViewModel>(context, listen: false);
-      tokenPreference.saveToken(TokenModel(token: value['token'].toString()));
+      tokenPreference
+          .saveToken(TokenModel(token: value['data']['token'].toString()));
       AppNavigator.pushNamed(context, RoutesName.home);
     }).onError((error, stackTrace) {
+      print(error);
       setLoginLoading(false);
     });
   }

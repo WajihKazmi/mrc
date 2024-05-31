@@ -42,7 +42,7 @@ class NotificationView extends StatelessWidget {
                 child: Padding(
                   padding:
                       AppPadding.screenPadding.copyWith(top: 0.h, bottom: 0.h),
-                  child: AppTextFormField.textFormField(context,
+                  child: AppTextFormField(
                       fillColor: Theme.of(context).colorScheme.primaryContainer,
                       hintText: 'Search',
                       suffixIcon: const Icon(CupertinoIcons.search)),

@@ -22,7 +22,7 @@ class ForgetPasswordRepository {
   Future<dynamic> forget_passwordApi(dynamic data) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.forget_password, data);
+          await _apiServices.getPostApiResponse(AppUrl.forgetPassword, data);
       return response;
     } catch (e) {
       rethrow;

@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mrc/model/auth/login_model.dart';
 import 'package:mrc/resource/app_navigator.dart';
 import 'package:mrc/resource/app_padding.dart';
 import 'package:mrc/resource/components/app_button.dart';
 import 'package:mrc/resource/components/app_text_form_field.dart';
 import 'package:mrc/resource/images.dart';
+import 'package:mrc/respository/auth/login_repository.dart';
 import 'package:mrc/utils/routes/routes_name.dart';
+import 'package:mrc/view_model/auth/login_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +98,21 @@ class LoginView extends StatelessWidget {
                                     .onPrimaryContainer)),
                   ),
                   20.verticalSpace,
-                  AppTextFormField.textFormField(context,
+                  AppTextFormField(
+                      isPassword: false,
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       autofillHints: [AutofillHints.email],
-                      hintText: 'Email'),
+                      hintText: 'Email',
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Enter a valid email';
+                        } else if (!_isValidEmail(val)) {
+                          return 'Enter a valid email address';
+                        } else {
+                          return null;
+                        }
+                      }),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -102,10 +130,22 @@ class LoginView extends StatelessWidget {
                                       .withOpacity(0.8))),
                     ),
                   ),
-                  AppTextFormField.textFormField(context,
-                      keyboardType: TextInputType.visiblePassword,
-                      autofillHints: [AutofillHints.password],
-                      hintText: 'Password'),
+                  AppTextFormField(
+                    isPassword: true,
+                    controller: passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    autofillHints: [AutofillHints.password],
+                    hintText: 'Password',
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return 'Enter a valid password';
+                      } else if (val.length < 8) {
+                        return 'Password must be at least 8 characters long';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -123,18 +163,28 @@ class LoginView extends StatelessWidget {
                                       .withOpacity(0.8))),
                     ),
                   ),
-                  AppButton.getButton(
-                      child: Text('Login',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary)),
-                      onPressed: () =>
-                          AppNavigator.pushNamed(context, RoutesName.bottomNav),
-                      context: context),
+                  Consumer<LoginViewModel>(
+                      builder: (context, loginProvider, child) {
+                    return AppButton.getButton(
+                        loading: loginProvider.loginLoading,
+                        child: Text('Login',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary)),
+                        onPressed: () {
+                          LoginModel loginModel = LoginModel(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                          loginProvider.loginApi(loginModel.toJson(), context);
+                        },
+                        context: context);
+                  }),
                   50.verticalSpace,
                   Text('- Or Sign in with -',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -194,5 +244,11 @@ class LoginView extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  bool _isValidEmail(String value) {
+    // Simple regex for email validation
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(value);
   }
 }

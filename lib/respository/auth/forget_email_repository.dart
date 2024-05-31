@@ -22,7 +22,7 @@ class ForgetEmailRepository {
   Future<dynamic> forget_emailApi(dynamic data) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.forget_email, data);
+          await _apiServices.getPostApiResponse(AppUrl.forgetEmail, data);
       return response;
     } catch (e) {
       rethrow;

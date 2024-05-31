@@ -3,7 +3,7 @@ import '/data/network/NetworkApiService.dart';
 import '/resource/app_url.dart';
 
 class LoginRepository {
-  final BaseApiServices _apiServices = NetworkApiService();
+  final NetworkApiService _apiServices = NetworkApiService();
 
   //   ***   this is Get api data   ***
 

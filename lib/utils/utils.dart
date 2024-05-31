@@ -132,7 +132,7 @@ SliverAppBar sliverAppBar(BuildContext context, String text,
                   Padding(
                     padding: AppPadding.screenPadding
                         .copyWith(top: 20.h, bottom: 30.h),
-                    child: AppTextFormField.textFormField(context,
+                    child: AppTextFormField(
                         fillColor: Theme.of(context).colorScheme.onPrimary,
                         hintText: 'Search',
                         suffixIcon: const Icon(CupertinoIcons.search)),

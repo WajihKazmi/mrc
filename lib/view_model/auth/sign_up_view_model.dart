@@ -39,10 +39,10 @@ class SignUpViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sign_upApi(dynamic data, BuildContext context) async {
+  Future<void> signUpApi(dynamic data, BuildContext context) async {
     setSignUpLoading(true);
 
-    sign_upRepository.sign_upApi(data).then((value) {
+    sign_upRepository.signUpApi(data).then((value) {
       setSignUpLoading(false);
       final tokenPreference =
           Provider.of<TokenViewModel>(context, listen: false);

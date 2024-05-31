@@ -14,7 +14,7 @@ class NetworkApiService extends BaseApiServices {
       final response =
           await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
-   } on TimeoutException {
+    } on TimeoutException {
       throw 'Please check your internet connection and try again.';
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -27,8 +27,9 @@ class NetworkApiService extends BaseApiServices {
   Future getPostApiResponse(String url, dynamic data) async {
     dynamic responseJson;
     try {
-      Response response =
-          await post(Uri.parse(url), body: data).timeout(const Duration(seconds: 10));
+      Response response = await http
+          .post(Uri.parse(url), body: data)
+          .timeout(const Duration(seconds: 10));
 
       responseJson = returnResponse(response);
     } on TimeoutException {
@@ -52,7 +53,7 @@ class NetworkApiService extends BaseApiServices {
         throw UnauthorisedException(response.body.toString());
       default:
         throw FetchDataException(
-        'Error accured while communicating with server with status code ${response.statusCode}');
+            'Error accured while communicating with server with status code ${response.statusCode}');
     }
   }
 }

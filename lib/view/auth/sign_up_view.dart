@@ -14,10 +14,10 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        await SystemNavigator.pop();
-        return true;
+    return PopScope(
+      onPopInvoked: (bool b) {
+        Navigator.of(context).pop(true); // Updated line
+        return;
       },
       child: Scaffold(
           body: Container(
@@ -85,40 +85,40 @@ class SignUpView extends StatelessWidget {
                                       .onPrimaryContainer)),
                     ),
                     20.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         keyboardType: TextInputType.name,
                         autofillHints: [AutofillHints.username],
                         hintText: 'First Name'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         keyboardType: TextInputType.name,
                         autofillHints: [AutofillHints.name],
                         hintText: 'Last Name'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         keyboardType: TextInputType.number, hintText: 'Age'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         keyboardType: TextInputType.datetime,
                         autofillHints: [AutofillHints.birthday],
                         hintText: 'DOB'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         autofillHints: [AutofillHints.email],
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'Email'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         autofillHints: [AutofillHints.newPassword],
                         keyboardType: TextInputType.visiblePassword,
                         hintText: 'Password'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         autofillHints: [AutofillHints.newPassword],
                         keyboardType: TextInputType.visiblePassword,
                         hintText: 'Confirm Password'),
                     10.verticalSpace,
-                    AppTextFormField.textFormField(context,
+                    AppTextFormField(
                         keyboardType: TextInputType.text,
                         hintText: 'Interests'),
                     10.verticalSpace,
