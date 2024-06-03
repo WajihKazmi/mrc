@@ -22,9 +22,9 @@ class SignUpRepository {
     try {
       dynamic response =
           await _apiServices.getPostApiResponse(AppUrl.signUp, data);
-      return response;
+      return {'data': response, 'error': null};
     } catch (e) {
-      rethrow;
+      return {'data': null, 'error': e};
     }
   }
 }

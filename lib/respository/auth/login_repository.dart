@@ -18,13 +18,13 @@ class LoginRepository {
 
   // ***   this is Post api data   ***
 
-  Future<dynamic> loginApi(dynamic data) async {
+  Future<Map<String, dynamic>> loginApi(dynamic data) async {
     try {
       dynamic response =
           await _apiServices.getPostApiResponse(AppUrl.login, data);
-      return response;
+      return {'data': response, 'error': null};
     } catch (e) {
-      rethrow;
+      return {'data': null, 'error': e};
     }
   }
 }

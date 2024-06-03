@@ -8,19 +8,17 @@ import 'package:mrc/resource/components/app_text_form_field.dart';
 import 'package:mrc/resource/images.dart';
 import 'package:mrc/utils/routes/routes_name.dart';
 import 'package:mrc/utils/utils.dart';
+import 'package:mrc/view_model/auth/sign_up_view_model.dart';
+import 'package:provider/provider.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (bool b) {
-        Navigator.of(context).pop(true); // Updated line
-        return;
-      },
-      child: Scaffold(
-          body: Container(
+    return Scaffold(body:
+        Consumer<SignUpViewModel>(builder: (context, signupProvider, child) {
+      return Container(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: CustomScrollView(
           slivers: [
@@ -67,134 +65,177 @@ class SignUpView extends StatelessWidget {
                         )),
                   )),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: AppPadding.screenPadding.copyWith(top: 0.h),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Create your Account',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer)),
-                    ),
-                    20.verticalSpace,
-                    AppTextFormField(
-                        keyboardType: TextInputType.name,
-                        autofillHints: [AutofillHints.username],
-                        hintText: 'First Name'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        keyboardType: TextInputType.name,
-                        autofillHints: [AutofillHints.name],
-                        hintText: 'Last Name'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        keyboardType: TextInputType.number, hintText: 'Age'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        keyboardType: TextInputType.datetime,
-                        autofillHints: [AutofillHints.birthday],
-                        hintText: 'DOB'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        autofillHints: [AutofillHints.email],
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: 'Email'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        autofillHints: [AutofillHints.newPassword],
-                        keyboardType: TextInputType.visiblePassword,
-                        hintText: 'Password'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        autofillHints: [AutofillHints.newPassword],
-                        keyboardType: TextInputType.visiblePassword,
-                        hintText: 'Confirm Password'),
-                    10.verticalSpace,
-                    AppTextFormField(
-                        keyboardType: TextInputType.text,
-                        hintText: 'Interests'),
-                    10.verticalSpace,
-                    AppButton.getButton(
-                        child: Text('Sign Up',
+            Form(
+              key: signupProvider.formKey,
+              child: SliverToBoxAdapter(
+                child: Padding(
+                  padding: AppPadding.screenPadding.copyWith(top: 0.h),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Create your Account',
                             style: Theme.of(context)
                                 .textTheme
-                                .titleMedium
+                                .headlineSmall
                                 ?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onPrimary)),
-                        onPressed: () => AppNavigator.pushNamed(
-                            context, RoutesName.bottomNav),
-                        context: context),
-                    50.verticalSpace,
-                    Text('- Or Sign Up with -',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer
-                                .withOpacity(0.5))),
-                    10.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        sociaMediaIconButton(
-                          onPressed: () {},
-                          name: AppImages.google,
-                        ),
-                        sociaMediaIconButton(
-                          onPressed: () {},
-                          name: AppImages.facebook,
-                        ),
-                        sociaMediaIconButton(
-                          onPressed: () {},
-                          name: AppImages.instagram,
-                        ),
-                        sociaMediaIconButton(
-                          onPressed: () {},
-                          name: AppImages.apple,
-                        ),
-                      ],
-                    ),
-                    150.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have a Account?',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        TextButton(
-                          child: Text(
-                            'Sign In',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                        .onPrimaryContainer)),
+                      ),
+                      20.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.nameFirstController,
+                        keyboardType: TextInputType.name,
+                        autofillHints: [AutofillHints.username],
+                        hintText: 'First Name',
+                        validator: signupProvider.nameValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.nameLastController,
+                        keyboardType: TextInputType.name,
+                        autofillHints: [AutofillHints.name],
+                        hintText: 'Last Name',
+                        validator: signupProvider.nameValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.ageController,
+                        keyboardType: TextInputType.number,
+                        hintText: 'Age',
+                        validator: signupProvider.ageValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.dobController,
+                        keyboardType: TextInputType.datetime,
+                        autofillHints: [AutofillHints.birthday],
+                        hintText: 'DOB',
+                        validator: signupProvider.dateValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.emailController,
+                        autofillHints: [AutofillHints.email],
+                        keyboardType: TextInputType.emailAddress,
+                        hintText: 'Email',
+                        validator: signupProvider.emailValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: true,
+                        controller: signupProvider.passwordController,
+                        autofillHints: [AutofillHints.newPassword],
+                        keyboardType: TextInputType.visiblePassword,
+                        hintText: 'Password',
+                        validator: signupProvider.passwordValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: true,
+                        controller: signupProvider.passwordConfirmController,
+                        autofillHints: [AutofillHints.newPassword],
+                        keyboardType: TextInputType.visiblePassword,
+                        hintText: 'Confirm Password',
+                        validator: signupProvider.confirmPasswordValidator,
+                      ),
+                      10.verticalSpace,
+                      AppTextFormField(
+                        isPassword: false,
+                        controller: signupProvider.interestsController,
+                        keyboardType: TextInputType.text,
+                        hintText: 'Interests',
+                        validator: signupProvider.interestsValidator,
+                      ),
+                      10.verticalSpace,
+                      AppButton.getButton(
+                          child: Text('Sign Up',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary)),
+                          onPressed: () {
+                            signupProvider.signUpApi(context);
+                            // AppNavigator.pushNamed(
+                            //     context, RoutesName.bottomNav);
+                          },
+                          context: context),
+                      50.verticalSpace,
+                      Text('- Or Sign Up with -',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer
+                                      .withOpacity(0.5))),
+                      10.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          sociaMediaIconButton(
+                            onPressed: () {},
+                            name: AppImages.google,
                           ),
-                          onPressed: () =>
-                              AppNavigator.pushNamed(context, RoutesName.login),
-                        ),
-                      ],
-                    )
-                  ],
+                          sociaMediaIconButton(
+                            onPressed: () {},
+                            name: AppImages.facebook,
+                          ),
+                          sociaMediaIconButton(
+                            onPressed: () {},
+                            name: AppImages.instagram,
+                          ),
+                          sociaMediaIconButton(
+                            onPressed: () {},
+                            name: AppImages.apple,
+                          ),
+                        ],
+                      ),
+                      150.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Already have a Account?',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Sign In',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                            onPressed: () => AppNavigator.pushNamed(
+                                context, RoutesName.login),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
-      )),
-    );
+      );
+    }));
   }
 }
