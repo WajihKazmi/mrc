@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:mrc/view_model/auth/forget_email_view_model.dart';
 import 'package:mrc/view_model/auth/forget_password_view_model.dart';
 import 'package:mrc/view_model/auth/login_view_model.dart';
@@ -17,7 +19,18 @@ import '/view_model/services/token_view_model.dart';
 import 'package:device_preview/device_preview.dart';
 import 'resource/app_theme.dart';
 
+//for testing
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,

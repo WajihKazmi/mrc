@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "f51f625e-ff75-49f2-a5de-cf6e0ba5dfbc",
+		"name": "MRC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32262484",
+		"_collection_link": "https://warped-space-559650.postman.co/workspace/MRC~2c995934-b215-4418-a804-d288e764308e/collection/32262484-f51f625e-ff75-49f2-a5de-cf6e0ba5dfbc?action=share&source=collection_link&creator=32262484"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sasuke@yopmail.com\",\r\n    \"password\": \"123456\",\r\n    \"firstName\": \"Uchiha\",\r\n    \"lastName\": \"Sasuke\",\r\n    \"gender\": \"male\",\r\n    \"dateOfBirth\": \"1990-06-22\",\r\n    \"phone\": \"1234567890\",\r\n    \"interest\": \"Visual Prowess\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/registration",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"\r",
+									"if (jsonResponse?.data?.token) {\r",
+									"    // Update the environment variable \"authorization\" with the extracted access_token\r",
+									"    postman.setEnvironmentVariable(\"authorization\", jsonResponse.data.token);\r",
+									"    postman.setEnvironmentVariable(\"user_id\", jsonResponse.data.user.id);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sasuke@yopmail.com\",\r\n    \"password\": \"123456\",\r\n    \"deviceToken\": \"asdwdsad\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/login",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Email Exists",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"\r",
+									"if (jsonResponse?.data?.token) {\r",
+									"    // Update the environment variable \"authorization\" with the extracted access_token\r",
+									"    postman.setEnvironmentVariable(\"authorization\", jsonResponse.data.token);\r",
+									"    postman.setEnvironmentVariable(\"user_id\", jsonResponse.data.user.id);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sasukea@yopmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/isexists",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"isexists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"if (jsonResponse?.data) {\r",
+									"    postman.setEnvironmentVariable(\"user_id\", jsonResponse.data.id);\r",
+									"    postman.setEnvironmentVariable(\"name\", jsonResponse.data.name);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/user/profile",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Social Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"\r",
+									"if (jsonResponse?.data?.token) {\r",
+									"    // Update the environment variable \"authorization\" with the extracted access_token\r",
+									"    postman.setEnvironmentVariable(\"authorization\", jsonResponse.data.token);\r",
+									"    postman.setEnvironmentVariable(\"user_id\", jsonResponse.data.user.id);\r",
+									"    postman.setEnvironmentVariable(\"name\", jsonResponse.data.user.name);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kakuzu@yopmail.com\",\r\n    \"platform\": \"ios\",\r\n    \"socialId\": 1231234,\r\n    \"socialToken\": \"33333411\",\r\n    \"deviceToken\": \"asdwdsdadasdsadsadsdw2ewsds4t5y6h\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/social-login",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"social-login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setEnvironmentVariable(\"user_id\", '');\r",
+									"postman.setEnvironmentVariable(\"name\", '');"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/logout",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"if (jsonResponse?.data?.otp) {\r",
+									"    postman.setEnvironmentVariable(\"otp\", jsonResponse.data.otp);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"hidan@yopmail.com\",\r\n  \"isSignUp\": true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/send-otp",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"send-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"hidan@yopmail.com\",\r\n  \"otp\": {{otp}}\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/verify-otp",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "lastName",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "firstName",
+									"value": "Vesta Bins",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1990-06-12",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+923001234567",
+									"type": "text"
+								},
+								{
+									"key": "imageUrl",
+									"type": "file",
+									"src": "/C:/Users/rafey/Pictures/01QQ9TeOzQTbund2V2ymT0k-1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/update-profile",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"update-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currect_password\": \"12345678\",\r\n    \"new_password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/update-password",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"update-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currect_password\": \"12345678\",\r\n    \"new_password\": \"123456\"\r\n}"
+								},
+								"url": {
+									"raw": "{{BaseURL}}/update-password",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"update-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Apr 2024 20:57:15 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Apr 2024 20:57:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.17"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Password updated successfully.\",\n    \"data\": []\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -45,7 +45,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
-    _obscureText = widget.obscureText;
+    _obscureText = widget.isPassword!;
   }
 
   @override

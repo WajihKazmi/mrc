@@ -9,20 +9,29 @@ import 'package:provider/provider.dart';
 class SignUpViewModel with ChangeNotifier {
   final signUpRepository = SignUpRepository();
 
-  final TextEditingController nameFirstController = TextEditingController();
-  final TextEditingController nameLastController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController =
-      TextEditingController();
-  final TextEditingController interestsController = TextEditingController();
+  TextEditingController nameFirstController = TextEditingController();
+  TextEditingController nameLastController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
+  TextEditingController interestsController = TextEditingController();
   Utils utils = Utils();
   final formKey = GlobalKey<FormState>();
 
   bool _signUpLoading = false;
   bool get signUpLoading => _signUpLoading;
+  void disposeFields() {
+    nameFirstController.clear();
+    nameLastController.clear();
+    genderController.clear();
+    dobController.clear();
+    emailController.clear();
+    passwordController.clear();
+    passwordConfirmController.clear();
+    interestsController.clear();
+  }
 
   setSignUpLoading(bool value) {
     _signUpLoading = value;
@@ -45,24 +54,16 @@ class SignUpViewModel with ChangeNotifier {
     return null;
   }
 
-  String? ageValidator(String? value) {
+  String? genderValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your age.';
-    }
-    int? age = int.tryParse(value);
-    if (age == null || age <= 0) {
-      return 'Please enter a valid age.';
+      return 'Please select a gender.';
     }
     return null;
   }
 
   String? dateValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your date of birth.';
-    }
-    final RegExp dateRegex = RegExp(r'^\d{2}-\d{2}-\d{4}$');
-    if (!dateRegex.hasMatch(value)) {
-      return 'Please enter date in the format dd-mm-yyyy.';
+      return 'Please Select your date of birth.';
     }
 
     return null;
@@ -115,7 +116,7 @@ class SignUpViewModel with ChangeNotifier {
       'password': passwordController.text,
       'interest': interestsController.text,
       'phone': "123123",
-      'gender': "male"
+      'gender': genderController.text,
     };
 
     setSignUpLoading(true);
@@ -142,15 +143,15 @@ class SignUpViewModel with ChangeNotifier {
         }
 
         // Clear any previous errors
-        nameFirstController.clear();
-        nameLastController.clear();
-        ageController.clear();
-        dobController.clear();
-        emailController.clear();
-        passwordController.clear();
-        passwordConfirmController.clear();
-        interestsController.clear();
-
+        // nameFirstController.clear();
+        // nameLastController.clear();
+        // genderController.clear();
+        // dobController.clear();
+        // emailController.clear();
+        // passwordController.clear();
+        // passwordConfirmController.clear();
+        // interestsController.clear();
+        print(errorMessage);
         // Display error message
         utils.errorSnackbar(errorMessage, context);
       } else {
