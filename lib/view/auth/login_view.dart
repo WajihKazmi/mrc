@@ -123,8 +123,9 @@ class _LoginViewState extends State<LoginView> {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () => AppNavigator.pushNamed(
-                                    context, RoutesName.forgetEmail,
-                                    arguments: {'name': 'Password'}),
+                                  context,
+                                  RoutesName.sendOtp,
+                                ),
                                 child: Text(
                                   'Forget Password?',
                                   style: Theme.of(context)

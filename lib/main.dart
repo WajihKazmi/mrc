@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:mrc/view_model/auth/forget_email_view_model.dart';
-import 'package:mrc/view_model/auth/forget_password_view_model.dart';
+import 'package:mrc/view_model/auth/send_otp_view_model.dart';
 import 'package:mrc/view_model/auth/login_view_model.dart';
 import 'package:mrc/view_model/auth/sign_up_view_model.dart';
+import 'package:mrc/view_model/auth/verify_otp_view_model.dart';
 
 import 'view_model/privacy_policy_view_model.dart';
 import 'view_model/faqs_view_model.dart';
@@ -43,7 +44,8 @@ void main() {
     ChangeNotifierProvider(create: (_) => PrivacyPolicyViewModel()),
     ChangeNotifierProvider(create: (_) => LoginViewModel()),
     ChangeNotifierProvider(create: (_) => SignUpViewModel()),
-    ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),
+    ChangeNotifierProvider(create: (_) => SendOtpViewModel()),
+    ChangeNotifierProvider(create: (_) => VerifyOtpViewModel()),
     ChangeNotifierProvider(create: (_) => ForgetEmailViewModel()),
   ], child: const MyApp()
       // child: DevicePreview(

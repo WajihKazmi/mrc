@@ -6,7 +6,9 @@ class RoutesName {
   static const String login = 'login';
   static const String signUp = 'signUp';
   static const String forgetEmail = 'forgetEmail';
-
+  static const String verifyOtp = 'verifyOtp';
+  static const String sendOtp = 'sendOtp';
+  static const String forgotPassword = 'forgotPassword';
   //home screen routes name
   static const String bottomNav = 'bottomNav';
   static const String home = 'home';
@@ -17,6 +19,6 @@ class RoutesName {
   static const String profileView = 'profileView';
   static const String changePassword = 'changePassword';
   static const String message = 'message';
-static const String faqs = 'faqs';
-static const String privacy_policy = 'privacy_policy';
+  static const String faqs = 'faqs';
+  static const String privacy_policy = 'privacy_policy';
 }

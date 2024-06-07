@@ -13,6 +13,7 @@ class SignUpViewModel with ChangeNotifier {
   TextEditingController nameLastController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController dobController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
@@ -27,6 +28,7 @@ class SignUpViewModel with ChangeNotifier {
     nameLastController.clear();
     genderController.clear();
     dobController.clear();
+    numberController.clear();
     emailController.clear();
     passwordController.clear();
     passwordConfirmController.clear();
@@ -50,6 +52,16 @@ class SignUpViewModel with ChangeNotifier {
   String? nameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your name.';
+    }
+    return null;
+  }
+
+  String? numberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your phone number.';
+    }
+    if (value.length < 8) {
+      return 'Please enter a valid phone number.';
     }
     return null;
   }
@@ -115,7 +127,7 @@ class SignUpViewModel with ChangeNotifier {
       'email': emailController.text,
       'password': passwordController.text,
       'interest': interestsController.text,
-      'phone': "123123",
+      'phone': numberController.text,
       'gender': genderController.text,
     };
 
@@ -155,13 +167,11 @@ class SignUpViewModel with ChangeNotifier {
         // Display error message
         utils.errorSnackbar(errorMessage, context);
       } else {
-        // Display generic error
         utils.errorSnackbar(
             'An unexpected error occurred. Please try again later.', context);
       }
     } catch (error) {
       print('Error: $error');
-      // Display generic error
       utils.errorSnackbar(
           'An unexpected error occurred. Please try again later.', context);
       setSignUpLoading(false);

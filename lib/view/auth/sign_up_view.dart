@@ -195,6 +195,15 @@ class _SignUpViewState extends State<SignUpView> {
                             10.verticalSpace,
                             AppTextFormField(
                               isPassword: false,
+                              controller: signupProvider.numberController,
+                              autofillHints: [AutofillHints.telephoneNumber],
+                              keyboardType: TextInputType.number,
+                              hintText: 'Phone Number',
+                              validator: signupProvider.numberValidator,
+                            ),
+                            10.verticalSpace,
+                            AppTextFormField(
+                              isPassword: false,
                               controller: signupProvider.emailController,
                               autofillHints: [AutofillHints.email],
                               keyboardType: TextInputType.emailAddress,

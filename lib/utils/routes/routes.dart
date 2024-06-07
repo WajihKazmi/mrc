@@ -1,7 +1,10 @@
+import 'package:mrc/view/auth/forgot_password_view.dart';
+import 'package:mrc/view/auth/verify_otp_view.dart';
+
 import '/view/privacy_policy_view.dart';
 import '/view/faqs_view.dart';
 import 'package:flutter/material.dart';
-import 'package:mrc/view/auth/forget_email_password_view.dart';
+import 'package:mrc/view/auth/send_otp_view.dart';
 import 'package:mrc/view/auth/login_and_signup_button_view.dart';
 import 'package:mrc/view/auth/login_view.dart';
 import 'package:mrc/view/auth/sign_up_view.dart';
@@ -28,10 +31,12 @@ class Routes {
         return pageRoute.getPageRoute(const LoginView());
       case RoutesName.signUp:
         return pageRoute.getPageRoute(const SignUpView());
-      case RoutesName.forgetEmail:
-        return pageRoute.getPageRoute(ForgetEmailPasswordView(
-          name: settings.arguments as Map,
-        ));
+      case RoutesName.verifyOtp:
+        return pageRoute.getPageRoute(const VerifyOtpView());
+      case RoutesName.sendOtp:
+        return pageRoute.getPageRoute(const SendOtpView());
+      case RoutesName.forgotPassword:
+        return pageRoute.getPageRoute(const ForgotPasswordView());
       case RoutesName.bottomNav:
         return pageRoute.getPageRoute(const BottomNavView());
       case RoutesName.home:
@@ -55,10 +60,10 @@ class Routes {
 
       case RoutesName.faqs:
         return pageRoute.getPageRoute(const FaqsView());
-      
-case RoutesName.privacy_policy:
-return pageRoute.getPageRoute(const PrivacyPolicyView());
-default:
+
+      case RoutesName.privacy_policy:
+        return pageRoute.getPageRoute(const PrivacyPolicyView());
+      default:
         return pageRoute.getDefaultRoute();
     }
   }

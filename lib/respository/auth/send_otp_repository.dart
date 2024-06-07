@@ -2,7 +2,7 @@ import '/data/network/BaseApiServices.dart';
 import '/data/network/NetworkApiService.dart';
 import '/resource/app_url.dart';
 
-class ForgetPasswordRepository {
+class SendOtpRepository {
   final BaseApiServices _apiServices = NetworkApiService();
 
   // ***   this is Get api data   ***
@@ -19,13 +19,13 @@ class ForgetPasswordRepository {
 
   // ***   this is Post api data   ***
 
-  Future<dynamic> forget_passwordApi(dynamic data) async {
+  Future<dynamic> sendOtpApi(dynamic data) async {
     try {
-      dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.forgetPassword, data);
-      return response;
+      dynamic response = await _apiServices.getPostApiResponse(
+          AppUrl.sendForgetPasswordOtp, data);
+      return {'data': response, 'error': null};
     } catch (e) {
-      rethrow;
+      return {'data': null, 'error': e};
     }
   }
 }

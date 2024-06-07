@@ -19,6 +19,10 @@ class LoginViewModel with ChangeNotifier {
 
   bool _loginLoading = false;
   bool get loginLoading => _loginLoading;
+  void disposeFields() {
+    emailController.clear();
+    passwordController.clear();
+  }
 
   setLoginLoading(bool value) {
     _loginLoading = value;
@@ -88,7 +92,6 @@ class LoginViewModel with ChangeNotifier {
               errorMessage.substring(startIndex + 11, endIndex);
           errorMessage = messageContent;
         }
-        // Clear any previous errors
 
         if (errorMessage == "User not found") {
           emailController.clear();
