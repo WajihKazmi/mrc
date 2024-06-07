@@ -32,7 +32,9 @@ class Routes {
       case RoutesName.signUp:
         return pageRoute.getPageRoute(const SignUpView());
       case RoutesName.verifyOtp:
-        return pageRoute.getPageRoute(const VerifyOtpView());
+        return pageRoute.getPageRoute(VerifyOtpView(
+          email: settings.arguments as String,
+        ));
       case RoutesName.sendOtp:
         return pageRoute.getPageRoute(const SendOtpView());
       case RoutesName.forgotPassword:

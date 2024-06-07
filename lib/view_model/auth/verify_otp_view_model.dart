@@ -30,19 +30,26 @@ class VerifyOtpViewModel with ChangeNotifier {
     return null;
   }
 
-  Future<void> verifyOtpApi(BuildContext context) async {
+  Future<void> verifyOtpApi(BuildContext context, String email) async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     String otp = otpControllers.map((controller) => controller.text).join();
+    dynamic data = {
+      'email': email,
+      'token': otp,
+    };
     setverifyOtpLoading(true);
-    dynamic data = otp;
+
     try {
       final response = await verifyOtpRepository.verifyOtpApi(data);
 
       setverifyOtpLoading(false);
       if (response['data'] != null) {
-//code 200
+        Navigator.of(context).pushNamed(RoutesName.forgotPassword);
+        for (TextEditingController controller in otpControllers) {
+          controller.clear();
+        }
       } else if (response['error'] != null) {
         String errorMessage = response['error'].toString();
 
@@ -55,14 +62,24 @@ class VerifyOtpViewModel with ChangeNotifier {
         }
         print(errorMessage);
         utils.errorSnackbar(errorMessage, context);
+
+        for (TextEditingController controller in otpControllers) {
+          controller.dispose();
+        }
       } else {
         utils.errorSnackbar(
             'An unexpected error occurred. Please try again later.', context);
+        for (TextEditingController controller in otpControllers) {
+          controller.dispose();
+        }
       }
     } catch (error) {
       print('Error: $error');
       utils.errorSnackbar(
           'An unexpected error occurred. Please try again later.', context);
+      for (TextEditingController controller in otpControllers) {
+        controller.dispose();
+      }
       setverifyOtpLoading(false);
     }
   }

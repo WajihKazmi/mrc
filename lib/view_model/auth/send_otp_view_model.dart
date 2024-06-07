@@ -50,7 +50,8 @@ class SendOtpViewModel with ChangeNotifier {
 
       setSendOtpLoading(false);
       if (response['data'] != null) {
-        AppNavigator.pushNamed(context, RoutesName.verifyOtp);
+        AppNavigator.pushNamed(context, RoutesName.verifyOtp,
+            arguments: emailController.text);
       } else if (response['error'] != null) {
         String errorMessage = response['error'].toString();
 

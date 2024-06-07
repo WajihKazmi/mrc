@@ -11,7 +11,8 @@ import 'package:mrc/view_model/auth/verify_otp_view_model.dart';
 import 'package:provider/provider.dart';
 
 class VerifyOtpView extends StatelessWidget {
-  const VerifyOtpView({super.key});
+  const VerifyOtpView({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -75,108 +76,111 @@ class VerifyOtpView extends StatelessWidget {
                     )),
               ),
               SliverToBoxAdapter(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Enter the verification code to continue",
-                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(
-                        4,
-                        (index) => SizedBox(
-                          width: 60,
-                          height: 50,
-                          child: TextFormField(
-                            controller: verifyOtpProvider.otpControllers[index],
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            maxLength: 1,
-                            validator: verifyOtpProvider.otpValidator,
-                            decoration: InputDecoration(
-                              hintText: ' ',
-                              counterText: '',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                child: Form(
+                  key: verifyOtpProvider.formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Enter the verification code to continue",
+                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(
+                          4,
+                          (index) => SizedBox(
+                            width: 60,
+                            height: 50,
+                            child: TextFormField(
+                              controller:
+                                  verifyOtpProvider.otpControllers[index],
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.number,
+                              maxLength: 1,
+                              validator: verifyOtpProvider.otpValidator,
+                              decoration: InputDecoration(
+                                hintText: ' ',
+                                counterText: '',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
+                              onChanged: (value) {
+                                if (value.length == 1 && index < 3) {
+                                  FocusScope.of(context).nextFocus();
+                                }
+                              },
                             ),
-                            onChanged: (value) {
-                              if (value.length == 1 && index < 3) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 20),
-                      child: Container(
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(30),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 20),
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: AppButton.getButton(
+                              loading: verifyOtpProvider.verifyOtpLoading,
+                              child: Text('Send OTP',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary)),
+                              onPressed: () {
+                                verifyOtpProvider.verifyOtpApi(context, email);
+                              },
+                              context: context),
                         ),
-                        child: TextButton(
-                          onPressed: () {
-                            String otp = verifyOtpProvider.otpControllers
-                                .map((controller) => controller.text)
-                                .join();
-                            print(otp);
-                            Navigator.of(context)
-                                .pushNamed(RoutesName.forgotPassword);
-                          },
-                          child: const Text(
-                            "Continue",
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Didn't Receive Code?",
                             style: TextStyle(
-                                fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Resend',
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Didn't Receive Code?",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Resend',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: Theme.of(context).colorScheme.primary,
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
